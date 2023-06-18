@@ -1,0 +1,165 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title text-center>Post</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <input
+    type="file"
+    id="fileLoader"
+    #fileLoader
+    name="files"
+    title="Load File"
+    hidden
+  />
+  <ion-grid>
+    <ion-row center>
+      <ion-col text-center>
+        <ion-buttons>
+          <button
+            *ngIf="pageOne"
+            ion-button
+            icon-left
+            color="light"
+            (click)="presentActionSheet(fileLoader)"
+            [disabled]="uploadVideoType!==''"
+          >
+            <ion-icon name="camera"></ion-icon>Browse
+          </button>
+          <!--<button
+            ion-button
+            icon-left
+            *ngIf="page"
+            (click)="pageOne=true;pageTwo=false;"
+            color="light"
+          >
+            Back
+          </button>-->
+          <button
+            ion-button
+            icon-left
+            *ngIf="pageOne"
+            (click)="sendpost()"
+            [disabled]="chosen_files.length==0||processing||saving"
+          >
+            <ion-icon name="paper-plane"></ion-icon>Post
+          </button>
+          <!--<button
+            ion-button
+            icon-left
+            *ngIf="page"
+            (click)="pageOne=false;pageTwo=true;"
+            [disabled]="chosen_files.length==0||processing||saving"
+          >
+            Continue</button
+          >--><span *ngIf="processing||saving">
+            <ion-spinner style="position: absolute; top: 4px"></ion-spinner>
+          </span> </ion-buttons></ion-col></ion-row
+    ><ion-row center *ngIf="pageOne"
+      ><ion-col text-center>
+        <ion-item center
+          ><br /><br /><br /><br />
+          <ion-input
+            text-center
+            type="text"
+            [(ngModel)]="this_post.description"
+            placeholder="Describe this moment"
+          ></ion-input> </ion-item
+        ><ion-item>
+          <ion-input
+            placeholder="Custom Hashtag"
+            text-center
+          ></ion-input></ion-item
+        ><br />
+        <span *ngFor="let hashtag of hashtaglist">
+          <ion-chip outline="false" (click)="toggle_hash(hashtag)">
+            <ion-icon
+              name="checkbox"
+              *ngIf="this_post.hashtags.indexOf(hashtag)>-1"
+            ></ion-icon>
+            <ion-label>{{hashtag}}</ion-label>
+          </ion-chip></span
+        ><ion-item></ion-item
+        ><ion-item><ion-toggle text-center>Free Download</ion-toggle></ion-item>
+        <h4>$ {{this_post.price}}.00</h4>
+        <p>* Price to download all uploaded media in this post.</p>
+        <ion-item>
+          <ion-range
+            min="1"
+            max="10"
+            step="1"
+            snaps="true"
+            color="primary"
+            [(ngModel)]="this_post.price"
+          >
+            <ion-icon small range-left name="logo-usd"></ion-icon>
+            <ion-icon range-right name="logo-usd"></ion-icon>
+          </ion-range>
+        </ion-item> </ion-col
+    ></ion-row>
+    <ion-row center *ngIf="pageOne">
+      <ion-col text-center>
+        <span
+          *ngIf="chosen_files.length==0"
+          (click)="presentActionSheet(fileLoader)"
+          ><ion-icon name="images" style="font-size: 90px"></ion-icon
+          ><ion-icon style="font-size: 20px" name="add-circle"></ion-icon
+        ></span>
+        <div *ngIf="uploadImage">
+          <span *ngFor="let chosen_file of uploadImage;let i = index">
+            <img
+              id="checkinImage"
+              [src]="chosen_file"
+              (load)="fileLoaded('content')"
+            /><ion-buttons
+              ><button
+                color="light"
+                ion-button
+                icon-left
+                *ngIf="!processing"
+                (click)="deleteImage(i)"
+              >
+                <ion-icon name="close-circle"></ion-icon>Delete
+              </button></ion-buttons
+            ></span
+          >
+        </div>
+        <div
+          *ngIf="uploadVideoType"
+          text-align="center"
+          class="embed-responsive embed-responsive-16by9"
+        >
+          <video
+            [src]="uploadVideo"
+            type="uploadVideoType"
+            width="400"
+            autoplay
+            loop
+            controls
+            (loadeddata)="fileLoaded('content')"
+          ></video>
+          <ion-buttons
+            ><button
+              color="light"
+              ion-button
+              icon-left
+              *ngIf="!processing"
+              (click)="deleteVideo()"
+            >
+              <ion-icon name="close-circle"></ion-icon>Delete
+            </button></ion-buttons
+          >
+        </div>
+      </ion-col></ion-row
+    ></ion-grid
+  >
+  <ion-grid>
+    <ion-row center *ngIf="pageConfirm">
+      <ion-col text-center>
+        Post uploaded. View all
+        <button (click)="login()">Login</button></ion-col
+      ></ion-row
+    ></ion-grid
+  >
+</ion-content>

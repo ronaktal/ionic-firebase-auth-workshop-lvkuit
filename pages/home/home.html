@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h3>Welcome to your member page</h3>
+  <p>
+    This is the information we have about your user.
+  </p>
+  <p>
+    Your email is <strong>{{ user.email }}</strong> and your unique user ID is <strong>{{ user.uid }}</strong>.
+  </p>
+
+  <button ion-button block (click)="logout()" >
+    Log Out
+  </button>
+
+</ion-content>

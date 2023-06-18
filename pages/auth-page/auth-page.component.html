@@ -1,0 +1,88 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{ authButtonText }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+<br><br>
+<button
+  ion-button
+  block
+  clear
+  (click)="googleLogin()"
+  class="login-with-google-btn"
+>
+  Sign in with Google
+</button><br><br> <p class="or">or</p><br>
+
+  <form [formGroup]="authForm" novalidate>
+    <ion-item>
+      <ion-label stacked>Email</ion-label>
+      <ion-input
+        formControlName="email"
+        type="email"
+        placeholder="Your email address"
+      >
+      </ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="authType !== 'reset'">
+      <ion-label stacked>Password</ion-label>
+      <ion-input
+        formControlName="password"
+        type="password"
+        placeholder="Your password"
+      >
+      </ion-input>
+    </ion-item>
+
+    <button
+      ion-button
+      block
+      (click)="
+        handleForm(
+          authType,
+          authForm.controls.email.value,
+          authForm.controls.password.value
+        )
+      "
+      [disabled]="!authForm.valid"
+    >
+      {{ authButtonText }}
+    </button>
+  </form>
+
+  <p *ngIf="showResetMessage && authType == 'reset'">
+    You should get an email with a reset password link
+  </p>
+
+  <button
+    ion-button
+    block
+    clear
+    (click)="goToLogin()"
+    *ngIf="authType !== 'login'"
+  >
+    I already have an account, login.
+  </button>
+  <button
+    ion-button
+    block
+    clear
+    (click)="goToSignup()"
+    *ngIf="authType !== 'signup'"
+  >
+    Create a new account
+  </button>
+
+  <button
+    ion-button
+    block
+    clear
+    (click)="goToReset()"
+    *ngIf="authType !== 'reset'"
+  >
+    Forgot Password
+  </button>
+</ion-content>

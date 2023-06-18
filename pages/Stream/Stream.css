@@ -1,0 +1,60 @@
+.story-list {
+  padding: 16px 0 8px;
+  border-bottom: 1px solid var(--ion-color-light);
+}
+.scroll-horizontal {
+  padding-left: 16px;
+}
+
+.scroll-item {
+  text-align: center;
+  margin-right: 16px;
+}
+.avatar-sm{
+  height:40px;width: auto;
+  border-radius: 50%;
+}
+.item-label {
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+.post-item {
+  margin-bottom: 60px;
+}
+.post-header {
+  padding: 8px;
+}
+.post-action {
+  padding: 0px;
+}
+
+.post-media {
+  font-size: 0;
+}
+img,
+video {
+  width: 100%;
+}
+
+.post-stats,
+.post-comments {
+  padding: 0 12px 8px;
+}
+
+.hash-tag {
+  text-decoration: none;
+  margin-right: 4px;
+}
+
+.post-comments {
+  line-height: 1.1;
+}
+.username {
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+ion-icon {
+  vertical-align: middle;
+}
